@@ -53,7 +53,7 @@ class User {
     createRequest({
       url: this.URL + '/current',
       method: 'GET',
-      callback,
+      callback: callbackInner,
     });
   }
 

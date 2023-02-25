@@ -13,6 +13,7 @@ class RegisterForm extends AsyncForm {
     const callback = () => {
       App.setState( 'user-logged' );
       App.getModal('register').close();
+      App.getForm('register').clearForm();
     };
     User.register(data, callback);
   }

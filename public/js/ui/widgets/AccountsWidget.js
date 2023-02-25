@@ -14,7 +14,13 @@ class AccountsWidget {
    * необходимо выкинуть ошибку.
    * */
   constructor( element ) {
-
+    if (element) {
+      this.element = element;
+      this.registerEvents();
+      this.update();
+    } else {
+      throw new Error('No element');
+    }
   }
 
   /**
@@ -25,7 +31,13 @@ class AccountsWidget {
    * вызывает AccountsWidget.onSelectAccount()
    * */
   registerEvents() {
+    this.element.querySelector('.create-account').addEventListener('click', () => {
+      App.getModal('createAccount').open();
+    });
 
+    this.element.querySelectorAll('.account').forEach(el => el.addEventListener('click', () => {
+      AccountsWidget.onSelectAccount();
+    }));
   }
 
   /**
@@ -39,7 +51,9 @@ class AccountsWidget {
    * метода renderItem()
    * */
   update() {
-
+    if (User.current()) {
+      Account.list(data, callback)
+    }
   }
 
   /**

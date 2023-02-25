@@ -37,11 +37,10 @@ class AsyncForm {
    * */
   getData() {
     const formData = new FormData(this.element);
-
     const result = {};
 
     for (let [key, value] of formData.entries()) {
-      result.key = value;
+      result[key] = value;
     }
 
     return result;
@@ -57,5 +56,10 @@ class AsyncForm {
    * */
   submit() {
     this.onSubmit(this.getData());
+  }
+
+  // очищает поля формы
+  clearForm() {
+    this.element.reset();
   }
 }
