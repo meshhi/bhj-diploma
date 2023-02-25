@@ -24,42 +24,55 @@
 // });
 
 const createRequest = (options = {}) => {
-  const url = options.url;
-  const data = options.data;
-  const method = options.method;
-  const callback = options.callback;
-
-  const xhr = new XMLHttpRequest();
+  try{
+    const url = options.url;
+    const data = options.data;
+    const method = options.method;
+    const callback = options.callback;
   
-  const loadHandler = () => {
-    if (xhr.status === 200) {
-      callback(null, xhr.responseText);
-    } else {
-      callback(xhr.responseText);
+    const xhr = new XMLHttpRequest();
+    
+    const loadHandler = () => {
+      if (xhr.status === 200) {
+        callback(null, xhr.responseText);
+      } else {
+        callback(xhr.responseText);
+      };
     };
-  };
+  
+    if (method === 'GET') {
+      if (data) {
+        let params = '';
+        for (let key in data) {
+          params += key + '=' + encodeURIComponent(data[key]) + '&';
+        }
+        params = params.slice(-1, 1);
+        xhr.open(method, url + '?' + params, true);
+      } else {
+        xhr.open(method, url, true);
+      }
 
-  if (method === 'GET') {
-    let params = '';
-    for (let key in data) {
-      params += key + '=' + encodeURIComponent(data[key]) + '&';
+    } else {
+      xhr.open(method, url, true);
     }
-    params = params.slice(-1, 1);
-    xhr.open(method, url + '?' + params, true);
-  } else {
-    xhr.open(method, url, true);
-  }
-
-  xhr.addEventListener('load', loadHandler);
-  xhr.responseType = 'json';
-
-  if (method === 'GET') {
-    xhr.send();
-  } else {
-    const formData = new FormData();
-    for (let key in data) {
-      formData.append(key, data[key]);
+  
+    xhr.addEventListener('load', loadHandler);
+    xhr.responseType = 'json';
+  
+    if (method === 'GET') {
+      xhr.send();
+    } else {
+      if (data) {
+        const formData = new FormData();
+        for (let key in data) {
+          formData.append(key, data[key]);
+        }
+        xhr.send(formData);
+      } else {
+        xhr.send();
+      }
     }
-    xhr.send(formData);
+  } catch (error) {
+    callback(error);
   }
 };
