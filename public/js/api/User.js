@@ -4,7 +4,7 @@
  * Имеет свойство URL, равное '/user'.
  * */
 class User {
-  static URL = '/user';
+  static URL = Entity.URL + '/user';
   /**
    * Устанавливает текущего пользователя в
    * локальном хранилище.
@@ -40,7 +40,7 @@ class User {
    * авторизованном пользователе.
    * */
   static fetch(callback) {
-    const callback = (err, response) => {
+    const callbackInner = (err, response) => {
       if (response && response.success) {
         this.setCurrent(response.user);
       } else if (response && !response.success) {
@@ -64,9 +64,10 @@ class User {
    * User.setCurrent.
    * */
   static login(data, callback) {
-    const callback = (err, response) => {
+    const callbackInner = (err, response) => {
       if (response && response.success) {
         this.setCurrent(response.user);
+        callback();
       } else {
         console.log(err);
       }
@@ -76,7 +77,7 @@ class User {
       url: this.URL + '/login',
       method: 'POST',
       data,
-      callback
+      callback: callbackInner,
     })
   }
 
@@ -87,9 +88,10 @@ class User {
    * User.setCurrent.
    * */
   static register(data, callback) {
-    const callback = (err, response) => {
+    const callbackInner = (err, response) => {
       if (response && response.success) {
         this.setCurrent(response.user);
+        callback();
       } else {
         console.log(err);
       }
@@ -99,7 +101,7 @@ class User {
       url: this.URL + '/register',
       method: 'POST',
       data,
-      callback
+      callback: callbackInner,
     })
   }
 
@@ -108,9 +110,10 @@ class User {
    * выхода необходимо вызвать метод User.unsetCurrent
    * */
   static logout(callback) {
-    const callback = (err, response) => {
+    const callbackInner = (err, response) => {
       if (response && response.success) {
         this.unsetCurrent();
+        callback();
       } else {
         console.log(err);
       }
@@ -119,7 +122,7 @@ class User {
     createRequest({
       url: this.URL + '/logout',
       method: 'POST',
-      callback
+      callback: callbackInner,
     })
   }
 }

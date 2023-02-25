@@ -34,9 +34,9 @@ const createRequest = (options = {}) => {
     
     const loadHandler = () => {
       if (xhr.status === 200) {
-        callback(null, xhr.responseText);
+        callback(null, xhr.response);
       } else {
-        callback(xhr.responseText);
+        callback(xhr.response);
       };
     };
   

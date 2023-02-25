@@ -5,6 +5,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
+var cors = require('cors')
 
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync', {
@@ -16,7 +17,12 @@ if(!db.get('users').value())
     setDefaultUser(db);
 
 const app = express();
+
+//CORS middleware
+app.use(cors())
+
 app.use(express.static(`${__dirname}/${PUBLIC_PATH}`));
+
 
 app.use(cookieParser());
 app.use(cookieSession({

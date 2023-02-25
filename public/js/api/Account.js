@@ -4,7 +4,7 @@
  * Имеет свойство URL со значением '/account'
  * */
 class Account extends Entity {
-  static URL = '/account';
+  static URL = Entity.URL + '/account';
   /**
    * Получает информацию о счёте
    * */
