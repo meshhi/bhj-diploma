@@ -37,9 +37,13 @@ class AccountsWidget {
 
     const that = this;
 
-    this.element.querySelectorAll('.account').forEach(el => el.addEventListener('click', () => {
-      that.onSelectAccount();
-    }));
+    console.log(this.element.querySelectorAll('.account'))
+    this.element.querySelectorAll('.account').forEach(el => {
+        console.log(el);
+        el.addEventListener('click', () => {
+        that.element.onSelectAccount();
+      });
+    });
   }
 
   /**
@@ -82,6 +86,7 @@ class AccountsWidget {
    * Вызывает App.showPage( 'transactions', { account_id: id_счёта });
    * */
   onSelectAccount( element ) {
+    console.log(element);
     document.querySelectorAll('.account').forEach(item => {
       if (item.classList.contains('active')) {
         item.classList.remove('active');
@@ -98,7 +103,7 @@ class AccountsWidget {
    * */
   getAccountHTML(item){
     return `
-    <li class="active account data-id=${item.id}">
+    <li class="active account" data-id="${item.id}">
       <a href="#">
           <span>${item.name}</span> /
           <span>${item.sum}</span>
@@ -114,10 +119,9 @@ class AccountsWidget {
    * и добавляет его внутрь элемента виджета
    * */
   renderItem(data){
-    // const widget = document.querySelector('.accounts-panel');
-    for (let i = 0; i < data.length; i++) {
+    for (let i = 0; i < data.data.length; i++) {
       const item = document.createElement('div');
-      item.innerHTML = this.getAccountHTML(data);
+      item.innerHTML = this.getAccountHTML(data.data[i]);
       this.element.appendChild(item);
     }
   }

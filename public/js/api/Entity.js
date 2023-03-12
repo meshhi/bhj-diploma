@@ -3,7 +3,8 @@
  * Имеет свойство URL, равно пустой строке.
  * */
 class Entity {
-  static URL = 'http://localhost:8000';
+  // static URL = 'http://localhost:8000';
+  static URL = '';
   /**
    * Запрашивает с сервера список данных.
    * Это могут быть счета или доходы/расходы

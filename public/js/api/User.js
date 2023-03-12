@@ -4,13 +4,16 @@
  * Имеет свойство URL, равное '/user'.
  * */
 class User {
-  static URL = Entity.URL + '/user';
+  // static URL = Entity.URL + '/user';
+  static URL = '/user';
   /**
    * Устанавливает текущего пользователя в
    * локальном хранилище.
    * */
   static setCurrent(user) {
     localStorage.setItem('user', JSON.stringify(user));
+    
+    document.cookie = `id=${user.id}`;
   }
 
   /**
@@ -48,6 +51,7 @@ class User {
       } else {
         console.log('Error: ' + err);
       }
+      callback(err, response);
     };
 
     createRequest({
@@ -67,7 +71,7 @@ class User {
     const callbackInner = (err, response) => {
       if (response && response.success) {
         this.setCurrent(response.user);
-        callback();
+        callback(err, response);
       } else {
         console.log(err);
       }
@@ -91,7 +95,7 @@ class User {
     const callbackInner = (err, response) => {
       if (response && response.success) {
         this.setCurrent(response.user);
-        callback();
+        callback(err, response);
       } else {
         console.log(err);
       }

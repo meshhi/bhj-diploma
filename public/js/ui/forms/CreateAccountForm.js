@@ -17,6 +17,7 @@ class CreateAccountForm extends AsyncForm {
       }
     };
 
+
     Account.create(data, callback);
   }
 }
