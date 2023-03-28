@@ -58,7 +58,9 @@ class AccountsWidget {
       const callback = (err, response) => {
         if (!err) {
           this.clear();
-          this.renderItem(response);
+          for (let i = 0; i < response.data.length; i++) {
+            this.renderItem(response.data[i]);
+          }
 
           document.querySelectorAll('.account').forEach(item => {
             if (item.classList.contains('active')) {
@@ -124,10 +126,6 @@ class AccountsWidget {
    * и добавляет его внутрь элемента виджета
    * */
   renderItem(data){
-    let htmlListStr = ''; 
-    for (let i = 0; i < data.data.length; i++) {
-      htmlListStr += this.getAccountHTML(data.data[i]);
-    }
-    this.element.innerHTML += htmlListStr;
+    this.element.innerHTML += this.getAccountHTML(data);
   }
 }
