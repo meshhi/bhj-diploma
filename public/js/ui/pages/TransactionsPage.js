@@ -33,13 +33,40 @@ class TransactionsPage {
    * TransactionsPage.removeAccount соответственно
    * */
   registerEvents() {
-    document.querySelectorAll('.remove-account').forEach(el => el.addEventListener('click', () => {
-      this.removeAccount(el.dataset.id);
-    }));
+    document.querySelectorAll('.remove-account').forEach(el => {
+      const rmAccount = () => {
+        this.removeAccount(el.dataset.id);
+      }
 
-    document.querySelectorAll('.transaction__remove').forEach(el => el.addEventListener('click', () => {
-      this.removeTransaction(el.dataset.id);
-    }));
+      const copyEl = el.cloneNode(true);
+
+      el.parentNode.appendChild(copyEl);
+      el.remove();
+
+      // el.removeEventListener('click', rmAccount);
+      // el.addEventListener('click', rmAccount);
+
+      copyEl.addEventListener('click', rmAccount);
+    });
+
+    document.querySelectorAll('.transaction__remove').forEach(el => {
+      const rmTransaction = () => {
+        this.removeTransaction(el.dataset.id);
+      }
+
+      const copyEl = el.cloneNode(true);
+
+      el.parentNode.appendChild(copyEl);
+      el.remove();
+
+      // el.removeEventListener('click', rmTransaction);
+      // el.addEventListener('click', rmTransaction);
+
+      copyEl.addEventListener('click', rmTransaction);
+    });
+
+    // document.querySelectorAll('.remove-account').forEach(el => el.addEventListener('click', rmAccount));
+    // document.querySelectorAll('.transaction__remove').forEach(el => el.addEventListener('click', rmTransaction));
   }
 
   /**
@@ -58,11 +85,14 @@ class TransactionsPage {
           if (!err) {
             App.updateWidgets();
             App.updateForms();
+            App.update();
           }
         }
 
         Account.remove(id, callback)
       }
+
+      this.clear();
     }
   }
 
@@ -97,7 +127,7 @@ class TransactionsPage {
 
       const accountCallback = (err, response) => {
         if (!err) {
-          this.renderTitle(response.data.name);
+          this.renderTitle(response.data.name, response.data.id);
         }
       }
 
@@ -120,15 +150,17 @@ class TransactionsPage {
    * */
   clear() {
     this.renderTransactions();
-    this.renderTitle('Название счёта');
+    this.renderTitle('Название счёта', null);
     this.lastOptions = null;
   }
 
   /**
    * Устанавливает заголовок в элемент .content-title
    * */
-  renderTitle(name){
+  renderTitle(name, id){
     document.querySelector('.content-title').innerHTML = name;
+
+    document.querySelector('.remove-account').dataset.id = id;
   }
 
   /**
@@ -209,6 +241,7 @@ class TransactionsPage {
    * используя getTransactionHTML
    * */
   renderTransactions(data){
+    document.querySelector('.content').innerHTML = '';
     if (data.length) {
       for (let item of data) {
         document.querySelector('.content').innerHTML += this.getTransactionHTML(item);

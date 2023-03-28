@@ -82,6 +82,13 @@ const createRequest = (options = {}) => {
         xhr.open(method, url, true);
         xhr.send(formData);
       }
+
+      if (url === '/account') {
+        const formData = new FormData();
+        formData.append('id', data);
+        xhr.open(method, url, true);
+        xhr.send(formData);
+      }
     } else {
       if (data) {
         const formData = new FormData();
