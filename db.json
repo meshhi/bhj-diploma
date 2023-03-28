@@ -189,6 +189,24 @@
       "sum": 300000,
       "type": "expense",
       "user_id": "1"
+    },
+    {
+      "id": "5pe7g51clfs0pzdl",
+      "type": "income",
+      "name": "йцуйц",
+      "sum": 13,
+      "account_id": "1",
+      "user_id": "1",
+      "created_at": "2023-03-28T08:50:46.232Z"
+    },
+    {
+      "id": "5pe7gk00lfs0qwpv",
+      "type": "income",
+      "name": "авыаыв",
+      "sum": 2432,
+      "account_id": "1",
+      "user_id": "1",
+      "created_at": "2023-03-28T08:51:29.442Z"
     }
   ]
 }
