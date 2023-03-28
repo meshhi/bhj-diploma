@@ -19,6 +19,7 @@ router.get("/", upload.none(), function(request, response) {
 });
 
 router.delete("/", upload.none(), function(request, response) {
+    console.log('DELETER');
     const db = low(new FileSync('db.json'));// получение БД
     let transactions = db.get("transactions");// получение всех транзакций
     let { id } = request.body;// получение id из тела запроса

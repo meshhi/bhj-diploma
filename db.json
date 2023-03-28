@@ -52,6 +52,11 @@
       "name": "Бизнес",
       "user_id": "1",
       "id": "3"
+    },
+    {
+      "name": "gnhgf",
+      "user_id": "1",
+      "id": "5pe7g1jolfs4tbma"
     }
   ],
   "transactions": [
@@ -62,24 +67,6 @@
       "name": "Кредит",
       "sum": 5000,
       "type": "expense",
-      "user_id": "1"
-    },
-    {
-      "account_id": "1",
-      "created_at": "2019-09-17 15:53:02",
-      "id": "2",
-      "name": "Баланс на дебетовке",
-      "sum": 3200,
-      "type": "income",
-      "user_id": "1"
-    },
-    {
-      "account_id": "1",
-      "created_at": "2019-09-19 20:12:02",
-      "id": "3",
-      "name": "Копилка",
-      "sum": 1500,
-      "type": "income",
       "user_id": "1"
     },
     {
@@ -191,15 +178,6 @@
       "user_id": "1"
     },
     {
-      "id": "5pe7g51clfs0pzdl",
-      "type": "income",
-      "name": "йцуйц",
-      "sum": 13,
-      "account_id": "1",
-      "user_id": "1",
-      "created_at": "2023-03-28T08:50:46.232Z"
-    },
-    {
       "id": "5pe7gk00lfs0qwpv",
       "type": "income",
       "name": "авыаыв",
@@ -207,6 +185,15 @@
       "account_id": "1",
       "user_id": "1",
       "created_at": "2023-03-28T08:51:29.442Z"
+    },
+    {
+      "id": "5pe7g128lfs4m21i",
+      "type": "income",
+      "name": "gfdgd",
+      "sum": 111,
+      "account_id": "1",
+      "user_id": "1",
+      "created_at": "2023-03-28T10:39:41.525Z"
     }
   ]
 }

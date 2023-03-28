@@ -39,15 +39,29 @@ const createRequest = (options = {}) => {
         callback(xhr.response);
       };
     };
-  
+
     if (method === 'GET') {
       if (data) {
         let params = '';
+        let id = ''
         for (let key in data) {
-          params += key + '=' + encodeURIComponent(data[key]) + '&';
+          if (url === '/transaction') {
+            params += key + '=' + encodeURIComponent(data[key]) + '&';
+          }
+          
+          if (url === '/account') {
+            id = data[key]
+          }
         }
-        params = params.slice(-1, 1);
-        xhr.open(method, url + '?' + params, true);
+
+        if (url === '/transaction') {
+          params = params.slice(0, params.length - 1);
+          xhr.open(method, url + '?' + params, true);
+        }
+
+        if (url === '/account') {
+          xhr.open(method, url + '/' + id, true);
+        }
       } else {
         xhr.open(method, url, true);
       }
@@ -61,6 +75,13 @@ const createRequest = (options = {}) => {
   
     if (method === 'GET') {
       xhr.send();
+    } else if (method === 'DELETE') {
+      if (url === '/transaction') {
+        const formData = new FormData();
+        formData.append('id', data);
+        xhr.open(method, url, true);
+        xhr.send(formData);
+      }
     } else {
       if (data) {
         const formData = new FormData();

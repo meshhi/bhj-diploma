@@ -36,7 +36,6 @@ class AccountsWidget {
     });
 
     this.element.querySelectorAll('.account').forEach(el => {
-        console.log(el);
         el.addEventListener('click', () => {
           this.onSelectAccount(el);
         });
@@ -93,7 +92,6 @@ class AccountsWidget {
    * Вызывает App.showPage( 'transactions', { account_id: id_счёта });
    * */
   onSelectAccount( element ) {
-    console.log(element);
     document.querySelectorAll('.account').forEach(item => {
       if (item.classList.contains('active')) {
         item.classList.remove('active');
