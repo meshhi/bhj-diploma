@@ -35,14 +35,11 @@ class AccountsWidget {
       App.getModal('createAccount').open();
     });
 
-    const that = this;
-
-    console.log(this.element.querySelectorAll('.account'))
     this.element.querySelectorAll('.account').forEach(el => {
         console.log(el);
         el.addEventListener('click', () => {
-        that.element.onSelectAccount();
-      });
+          this.onSelectAccount(el);
+        });
     });
   }
 
@@ -62,6 +59,14 @@ class AccountsWidget {
         if (!err) {
           this.clear();
           this.renderItem(response);
+
+          document.querySelectorAll('.account').forEach(item => {
+            if (item.classList.contains('active')) {
+              item.classList.remove('active');
+            }
+          });
+          
+          this.registerEvents();
         }
       };
 
@@ -119,10 +124,10 @@ class AccountsWidget {
    * и добавляет его внутрь элемента виджета
    * */
   renderItem(data){
+    let htmlListStr = ''; 
     for (let i = 0; i < data.data.length; i++) {
-      const item = document.createElement('div');
-      item.innerHTML = this.getAccountHTML(data.data[i]);
-      this.element.appendChild(item);
+      htmlListStr += this.getAccountHTML(data.data[i]);
     }
+    this.element.innerHTML += htmlListStr;
   }
 }
